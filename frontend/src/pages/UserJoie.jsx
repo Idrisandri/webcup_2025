@@ -1,4 +1,3 @@
-// src/pages/UserJoie.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api.js';
@@ -17,9 +16,19 @@ export default function UserJoie() {
     navigate('/login', { replace: true });
   };
 
+  const goToChat = () => {
+    navigate('/chat');
+  };
+
   return (
     <div className="p-4 text-center space-y-6">
-      <div>🎉 Bienvenue dans l&apos;univers de la joie ! 🎉</div>
+      <div>🎉 Bienvenue dans l'univers de la joie ! 🎉</div>
+      <button
+        onClick={goToChat}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
+        Aller au Chat
+      </button>
       <button
         onClick={handleLogout}
         className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"

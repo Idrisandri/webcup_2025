@@ -13,12 +13,14 @@ import Home from './pages/Home.jsx';
 import Signup from './components/Signup.jsx';
 import SignupStep2 from './components/SignupStep2.jsx';
 import Login from './components/Login.jsx';
+
+import Chat from './Components/chat.jsx';
 import UserJoie from './pages/UserJoie.jsx';
 import UserColere from './pages/UserColere.jsx';
 import UserRegret from './pages/UserRegret.jsx';
 import UserTristesse from './pages/UserTristesse.jsx';
 import UserPeur from './pages/UserPeur.jsx';
-import ModeratorPage from './pages/ModeratorPage.jsx';
+
 
 function Layout({ children }) {
   const { pathname } = useLocation();
@@ -63,12 +65,13 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signup-step2" element={<SignupStep2 />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/user/joie" element={<UserJoie />} />
           <Route path="/user/colere" element={<UserColere />} />
           <Route path="/user/regret" element={<UserRegret />} />
           <Route path="/user/tristesse" element={<UserTristesse />} />
           <Route path="/user/peur" element={<UserPeur />} />
-          <Route path="/moderator" element={<ModeratorPage />} />
+         
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>

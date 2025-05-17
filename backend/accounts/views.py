@@ -8,9 +8,17 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from .serializers import SignupStep1Serializer, SignupStep2Serializer, LoginSerializer
 from rest_framework.authentication import SessionAuthentication
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view
+from rest_framework.decorators import (
+    authentication_classes,
+    permission_classes
+)
 from django.contrib.auth import logout
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+
 
 User = get_user_model()
 
@@ -36,11 +44,21 @@ class SignupStep2View(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
-    """
-    Hérite de SessionAuthentication mais désactive la vérification CSRF.
-    """
+    """Session auth sans vérif CSRF"""
     def enforce_csrf(self, request):
-        return  # skip CSRF check
+        return  # pas de check CSRF
+
+@csrf_exempt
+@api_view(['POST'])
+@authentication_classes([CsrfExemptSessionAuthentication])
+@permission_classes([AllowAny])
+def logout_view(request):
+    """
+    POST /api/accounts/logout/
+    => Supprime la session sans CSRF ni permissions
+    """
+    logout(request)
+    return Response(status=204)
 
 class LoginView(APIView):
     """
@@ -79,7 +97,12 @@ class LoginView(APIView):
     
 
 
-@api_view(['POST'])
+@csrf_exempt
+@require_POST
 def logout_view(request):
+    """
+    POST /api/accounts/logout/
+    Désactive CSRF et ne passe pas par DRF pour contourner le 403.
+    """
     logout(request)
-    return Response(status=204)
+    return JsonResponse({}, status=204)
