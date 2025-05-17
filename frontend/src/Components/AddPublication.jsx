@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api.js';
 
 /**
- * Formulaire d’ajout de publication
+ * Formulaire d’ajout de publication (image + vidéo + musique)
  *
  * Props
  * -----
@@ -11,19 +11,18 @@ import api from '../api.js';
  * - onPublicationAdded : callback appelé après succès
  */
 export default function AddPublication({ authorId, onPublicationAdded }) {
-  const [title, setTitle] = useState('');
+  const [title, setTitle]           = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState(null);
-  const [tone, setTone] = useState('🙌');
-  const [loading, setLoading] = useState(false);
+  const [image, setImage]           = useState(null);
+  const [video, setVideo]           = useState(null);   // ← NEW
+  const [music, setMusic]           = useState(null);   // ← NEW
+  const [tone, setTone]             = useState('🙌');
+  const [loading, setLoading]       = useState(false);
 
-  /** Récupère un cookie csrftoken dès le montage */
-  useEffect(() => {
-    api.get('pages/csrf/').catch(() => {
-      // La route renvoie juste 200 + cookie ― pas d’action requise
-    });
-  }, []);
+  /* ── Récupère le cookie CSRF dès le montage ───────────────────── */
+  useEffect(() => { api.get('pages/csrf/').catch(() => {}); }, []);
 
+  /* ── Soumission ──────────────────────────────────────────────── */
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
@@ -31,18 +30,22 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
-    formData.append('image', image);
+    if (image) formData.append('image', image);
+    if (video) formData.append('video', video);   // ← NEW
+    if (music) formData.append('music', music);   // ← NEW
     formData.append('tone', tone);
-    formData.append('author', authorId); // sera ignoré côté serveur si you override perform_create
+    formData.append('author', authorId);          // sera ignoré si perform_create fixe l’auteur
 
     try {
-      // IMPORTANT : ne PAS fixer Content-Type ; Axios gère la boundary.
       await api.post('pages/publications/', formData, { withCredentials: true });
-
       alert('Publication ajoutée avec succès 🎉');
+
+      /* Réinitialisation du formulaire */
       setTitle('');
       setDescription('');
       setImage(null);
+      setVideo(null);
+      setMusic(null);
       setTone('🙌');
       onPublicationAdded?.();
     } catch (err) {
@@ -53,13 +56,16 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
     }
   };
 
+  /* ── Rendu ───────────────────────────────────────────────────── */
   return (
     <form
       onSubmit={handleSubmit}
       className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow"
+      encType="multipart/form-data"
     >
       <h2 className="text-2xl font-bold mb-4">Créer une Publication 🚀</h2>
 
+      {/* Titre ----------------------------------------------------- */}
       <label className="block mb-2 font-semibold">Titre :</label>
       <input
         type="text"
@@ -69,6 +75,7 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
         className="w-full p-2 border border-gray-300 rounded mb-4"
       />
 
+      {/* Description ----------------------------------------------- */}
       <label className="block mb-2 font-semibold">Description :</label>
       <textarea
         rows="4"
@@ -78,14 +85,34 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
         className="w-full p-2 border border-gray-300 rounded mb-4"
       />
 
-      <label className="block mb-2 font-semibold">Image :</label>
+      {/* Image ----------------------------------------------------- */}
+      <label className="block mb-2 font-semibold">Image (optionnel) :</label>
       <input
         type="file"
-        onChange={e => setImage(e.target.files[0])}
         accept="image/*"
+        onChange={e => setImage(e.target.files[0])}
         className="w-full mb-4"
       />
 
+      {/* Vidéo ----------------------------------------------------- */}
+      <label className="block mb-2 font-semibold">Vidéo (optionnel) :</label>
+      <input
+        type="file"
+        accept="video/*"
+        onChange={e => setVideo(e.target.files[0])}
+        className="w-full mb-4"
+      />
+
+      {/* Musique --------------------------------------------------- */}
+      <label className="block mb-2 font-semibold">Musique (optionnel) :</label>
+      <input
+        type="file"
+        accept="audio/*"
+        onChange={e => setMusic(e.target.files[0])}
+        className="w-full mb-4"
+      />
+
+      {/* Ton ------------------------------------------------------- */}
       <label className="block mb-2 font-semibold">Ton :</label>
       <select
         value={tone}
@@ -99,6 +126,7 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
         <option value="✨">✨ Classe</option>
       </select>
 
+      {/* Bouton ----------------------------------------------------- */}
       <button
         type="submit"
         disabled={loading}

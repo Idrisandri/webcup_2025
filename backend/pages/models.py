@@ -23,6 +23,8 @@ class Publication(models.Model):
     reactions = models.PositiveIntegerField(default=0)
     shares = models.PositiveIntegerField(default=0)
     tone = models.CharField(max_length=2, choices=TONE_CHOICES, default='🙌')
+    video        = models.FileField(upload_to='videos/', null=True, blank=True)  # ← NEW
+    music        = models.FileField(upload_to='audios/', null=True, blank=True)  # ← NEW
 
     def __str__(self):
         return self.title
