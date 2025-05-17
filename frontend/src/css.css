@@ -1,0 +1,26 @@
+.yellow-gradient {
+    background: radial-gradient(
+      ellipse at center,
+      #ebd88b 0%, /* yellow-400 */
+      #c2950d 40%, /* yellow-500 */
+      #946603 100% /* yellow-600 */
+    );
+  }
+
+  .orange-gradient {
+    background: radial-gradient(
+      ellipse at center,
+      #f78f57 0%, /* orange-600 */
+      #e46939 50%, /* orange-700 */
+      #be471f 100% /* orange-800 */
+    );
+  }
+
+  .slate-gradient {
+    background: radial-gradient(
+      ellipse at center,
+      #64748b 0%, /* slate-500 */
+      #475569 50%, /* slate-600 */
+      #334155 100% /* slate-700 */
+    );
+  }
