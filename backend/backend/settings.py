@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'gemini_app',
     'rest_framework',
     'corsheaders',
+    'pages',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ GEMINI_API_KEY = 'AIzaSyBUYs-uQPbdTohftf5SlkuzCiblw_KO-9A'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

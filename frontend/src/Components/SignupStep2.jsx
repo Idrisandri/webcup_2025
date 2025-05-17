@@ -8,6 +8,14 @@ export default function SignupStep2() {
   const navigate = useNavigate();
   const [emotion, setEmotion] = useState('joie');
 
+  const emotions = [
+    { value: 'joie', label: 'Joie' },
+    { value: 'colere', label: 'Colère' },
+    { value: 'regret', label: 'Regret' },
+    { value: 'tristesse', label: 'Tristesse' },
+    { value: 'peur', label: 'Peur' },
+  ];
+
   const handleSubmit = async e => {
     e.preventDefault();
     try {
@@ -19,20 +27,24 @@ export default function SignupStep2() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 max-w-md mx-auto">
-      <label className="block font-medium">Choisissez votre émotion :</label>
-      <select
-        value={emotion}
-        onChange={e => setEmotion(e.target.value)}
-        className="w-full p-2 border rounded"
-      >
-        <option value="joie">Joie</option>
-        <option value="colere">Colère</option>
-        <option value="regret">Regret</option>
-        <option value="tristesse">Tristesse</option>
-        <option value="peur">Peur</option>
-      </select>
-      <button type="submit" className="w-full py-2 rounded bg-green-600 text-white">
+    <form onSubmit={handleSubmit} className="p-4 max-w-md mx-auto">
+      <div className="block font-medium mb-2">Choisissez votre émotion :</div>
+      <div className="grid grid-cols-2 gap-4 mb-4">
+        {emotions.map(opt => (
+          <div
+            key={opt.value}
+            onClick={() => setEmotion(opt.value)}
+            className={`p-4 border rounded text-center cursor-pointer transition ${
+              emotion === opt.value
+                ? 'bg-green-600 text-white border-green-600'
+                : 'bg-white text-gray-800 hover:bg-gray-100'
+            }`}
+          >
+            {opt.label}
+          </div>
+        ))}
+      </div>
+      <button type="submit" className="w-full py-2 rounded bg-green-600 text-white hover:bg-green-700">
         Terminer
       </button>
     </form>
