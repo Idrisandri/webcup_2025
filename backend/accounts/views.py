@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model
 from .serializers import SignupStep1Serializer, SignupStep2Serializer, LoginSerializer
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view
+from django.contrib.auth import logout
 
 User = get_user_model()
 
@@ -74,3 +76,10 @@ class LoginView(APIView):
         # Log the user in
         login(request, user)
         return Response({'emotion': user.emotion}, status=status.HTTP_200_OK)
+    
+
+
+@api_view(['POST'])
+def logout_view(request):
+    logout(request)
+    return Response(status=204)
