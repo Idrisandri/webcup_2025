@@ -1,44 +1,62 @@
 # pages/views.py
-from django.shortcuts import render  # (garde si tu utilises render ailleurs)
-from rest_framework.viewsets import ModelViewSet
+from django.http import JsonResponse
+from django.shortcuts import render  # utile si tu as d’autres vues avec render
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+from rest_framework import status
 from rest_framework.permissions import AllowAny
-from accounts.views import CsrfExemptSessionAuthentication  # même classe que pour logout
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
+from accounts.views import CsrfExemptSessionAuthentication
+from django.contrib.auth import get_user_model
 
 from .models import Publication
 from .serializers import PublicationSerializer
 
-# Pour servir le cookie csrftoken
-from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.utils.decorators import method_decorator
+User = get_user_model()
 
 
 class PublicationViewSet(ModelViewSet):
     """
     CRUD complet sur les publications.
-
-    ⚠️ authentication_classes désactive la vérification CSRF
-    pour les requêtes venant du front (Axios + cookie).
+    - Auth facultative (AllowAny) : un utilisateur anonyme peut poster
+      → l’auteur restera NULL sauf si author_id est envoyé.
     """
-    queryset = Publication.objects.all().order_by('-created_at')
+    queryset = Publication.objects.all().order_by("-created_at")
     serializer_class = PublicationSerializer
-
     authentication_classes = [CsrfExemptSessionAuthentication]
-    permission_classes = [AllowAny]  # Passe à IsAuthenticated si nécessaire
+    permission_classes = [AllowAny]
+
+    # ---------- création ----------
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            self.perform_create(serializer)
+        except Exception:
+            print("=== ERREUR perform_create ===")
+            import traceback; traceback.print_exc()
+            # on relaisse l’exception pour que DRF retourne 500
+            raise
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
         """
-        Associe automatiquement l’auteur à la publication,
-        plutôt que d’attendre un champ 'author' dans le formData.
+        Associe automatiquement l’auteur connecté,
+        à moins qu’un `author_id` ait été fourni.
         """
-        serializer.save(author=self.request.user)
+        if self.request.user.is_authenticated:
+            serializer.save(author=self.request.user)
+        else:
+            # soit author_id a été validé par le serializer, soit auteur = NULL
+            serializer.save()
 
 
-# -----------------  utilitaire CSRF ----------------- #
+# ----------- utilitaire pour poser le cookie CSRF -----------
 @ensure_csrf_cookie
 def get_csrf_token(request):
-    """
-    GET /api/pages/csrf/  → renvoie 200 + Set-Cookie: csrftoken=...
-    Permet au front d’obtenir un cookie avant le premier POST.
-    """
-    return JsonResponse({'detail': 'CSRF cookie set'})
+    return JsonResponse({"detail": "CSRF cookie set"})
