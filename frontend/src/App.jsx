@@ -15,6 +15,8 @@ import Signup from "./components/Signup.jsx";
 
 import SignupStep2 from "./components/SignupStep2.jsx";
 import PublicationPage from "./components/PublicationPage.jsx";
+
+import PublicationDetail from "./components/PublicationDetail.jsx";
 import Login from "./components/Login.jsx";
 import Disposition from "./components/Disposition.jsx";   // D majuscule
 import Chat from "./components/Chat.jsx";
@@ -67,7 +69,8 @@ export default function App() {
           <Route path="/add" element={<AddPublication authorId={user.id} />} />
 
           {/* page individuelle */}
-          <Route path="/publication/:id" element={<PublicationPage />} />
+          
+          <Route path="/publication/:id" element={<PublicationDetail />} />
 
           {/* dashboards par émotion */}
           <Route path="/user/joie" element={<UserJoie />} />

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api.js';                    // ← réutilise ton instance Axios
 import { Eye, Heart, Share2, Clock, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 /**
  * Affiche des cartes de publication
@@ -94,9 +95,12 @@ export default function Publications({ publications = null, darkMode = false }) 
                     <Share2 className="inline w-4 h-4" /> {page.shares ?? 0}
                   </span>
                 </div>
-                <button className="bg-neutral-500 text-white px-3 py-1 rounded-full flex items-center">
-                  Lire <ArrowUpRight className="w-3 h-3 ml-1" />
-                </button>
+                <Link
+  to={`/publication/${page.id}`}
+  className="bg-neutral-500 text-white px-3 py-1 rounded-full flex items-center"
+>
+  Lire <ArrowUpRight className="w-3 h-3 ml-1" />
+</Link> 
               </div>
             </div>
           </div>
