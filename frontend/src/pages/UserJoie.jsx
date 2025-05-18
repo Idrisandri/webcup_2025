@@ -5,7 +5,7 @@ import api from "../api.js";
 
 import Publications from "../components/Publications.jsx";
 
-import { Menu, User, LogOut, ChevronDown, MessageSquare } from "lucide-react";
+import { Menu, User, LogOut, ChevronDown, MessageSquare, Trophy } from "lucide-react";
 import ChatPopup from "../components/ChatPopup.jsx";
 import '../assets/chatBtn.css';
 
@@ -21,7 +21,7 @@ export default function UserJoie() {
     const pulseInterval = setInterval(() => {
       setIsPulsing(prev => !prev);
     }, 2000);
-    
+
     return () => clearInterval(pulseInterval);
   }, []);
 
@@ -52,8 +52,8 @@ export default function UserJoie() {
         const data = Array.isArray(res.data)
           ? res.data
           : Array.isArray(res.data.results)
-          ? res.data.results
-          : [];
+            ? res.data.results
+            : [];
         setPublications(data);
       } catch (err) {
         console.error("Erreur lors de la récupération des publications :", err);
@@ -69,8 +69,8 @@ export default function UserJoie() {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                  T
+                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                  <img src="/logo.png" alt="" className="w-10 h-10" />
                 </div>
                 <span className="ml-3 font-medium text-gray-800 text-lg">
                   The.EndPage
@@ -86,7 +86,7 @@ export default function UserJoie() {
                     className="bg-amber-200 flex items-center px-3 py-2 rounded-full text-gray-800 hover:bg-amber-300 transition-colors duration-200 focus:outline-none"
                   >
                     <User size={20} className="mr-2" />
-                    <span className="mr-1">Pierre</span>
+
                     <ChevronDown size={16} />
                   </button>
                 </div>
@@ -94,13 +94,7 @@ export default function UserJoie() {
                 {isProfileOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
-                      <a
-                        href="#"
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-100"
-                      >
-                        <User size={16} className="mr-2" />
-                        Mon Profil
-                      </a>
+
                       <button
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-100 w-full"
@@ -134,7 +128,7 @@ export default function UserJoie() {
 
         <div className="fixed bottom-6 right-6 z-50">
           <div className={`absolute inset-0 rounded-full bg-amber-400 opacity-20 ${isPulsing ? 'animate-ping' : ''}`}></div>
-          
+
           <button
             onClick={handleClick}
             onMouseEnter={() => setIsHovered(true)}
@@ -150,7 +144,7 @@ export default function UserJoie() {
             `}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-size-200 animate-gradient-x"></div>
-            
+
             <div className="relative flex items-center justify-center">
               {!isHovered ? (
                 <MessageSquare size={24} className="text-white animate-bounce" />
@@ -158,15 +152,14 @@ export default function UserJoie() {
                 <div className="flex items-center text-white font-medium">
                   <MessageSquare size={20} className="mr-2" />
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {showChat ? 'Fermer le Chat' : 'Ouvrir le Chat'}
                   </span>
                 </div>
               )}
             </div>
           </button>
-          
+
           <div className="absolute inset-0 -m-1 rounded-full bg-amber-300 opacity-30 blur-md group-hover:opacity-50 transition-opacity duration-500"></div>
-          
+
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full animate-float-slow opacity-70"></div>
           <div className="absolute -top-3 -left-2 w-2 h-2 bg-amber-400 rounded-full animate-float-medium opacity-60"></div>
           <div className="absolute -bottom-2 -right-3 w-4 h-4 bg-yellow-400 rounded-full animate-float-fast opacity-50"></div>
@@ -175,9 +168,12 @@ export default function UserJoie() {
         {showChat && <ChatPopup onClose={() => setShowChat(false)} />}
 
         <div className="space-y-6">
-          <button 
-            onClick={goToAddPublication}
-            className={`
+          <div className="flex justify-center">
+            
+            
+            <button
+              onClick={goToAddPublication}
+              className={`
               flex items-center gap-2 px-5 py-3 rounded-xl
               bg-gradient-to-r from-amber-400 to-yellow-300
               text-amber-900 font-medium
@@ -188,37 +184,32 @@ export default function UserJoie() {
               group
               border-2 border-amber-300/50
             `}
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              <span className="text-xl">➕</span>
-              <span>Ajouter une publication</span>
-            </span>
-            
-            <span className="
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span className="text-xl">➕</span>
+                <span>Ajouter une publication</span>
+              </span>
+
+              <span className="
               absolute inset-0 rounded-xl
               bg-gradient-to-r from-white/30 to-transparent
               opacity-0 group-hover:opacity-100
               transition-opacity duration-500
             "></span>
-            
-            <span className="
+
+              <span className="
               absolute top-1/4 left-2 w-1 h-1
               bg-white rounded-full
               opacity-70 group-hover:opacity-100
               transition-opacity duration-300
             "></span>
-            <span className="
+              <span className="
               absolute top-3/4 right-2 w-1.5 h-1.5
               bg-white rounded-full
               opacity-50 group-hover:opacity-90
               transition-opacity duration-500 delay-100
             "></span>
-          </button>
-
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold flex items-center gap-2">
-              📌 Publications récentes
-            </h2>
+            </button>
           </div>
 
           {publications.length > 0 ? (

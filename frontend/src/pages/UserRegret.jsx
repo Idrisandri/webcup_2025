@@ -48,8 +48,8 @@ export default function UserRegret() {
         const data = Array.isArray(res.data)
           ? res.data
           : Array.isArray(res.data.results)
-          ? res.data.results
-          : [];
+            ? res.data.results
+            : [];
         setPublications(data);
       } catch (err) {
         console.error("Erreur lors de la récupération des publications :", err);
@@ -65,8 +65,8 @@ export default function UserRegret() {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-teal-600 to-slate-500 flex items-center justify-center text-white font-bold text-xl shadow-inner">
-                  T
+                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-teal-600 to-slate-500 flex items-center justify-center text-white font-bold text-xl shadow-inner">
+                  <img src="/logo.png" alt="" className="w-10 h-10" />
                 </div>
                 <span className="ml-3 font-medium text-teal-900/80 text-lg">
                   The.EndPage
@@ -82,7 +82,7 @@ export default function UserRegret() {
                     className="bg-teal-100/70 flex items-center px-3 py-2 rounded-full text-teal-900/80 hover:bg-teal-200/50 transition-colors duration-300 focus:outline-none border border-teal-200/50"
                   >
                     <User size={20} className="mr-2" />
-                    <span className="mr-1">Pierre</span>
+
                     <ChevronDown size={16} />
                   </button>
                 </div>
@@ -90,13 +90,7 @@ export default function UserRegret() {
                 {isProfileOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white/95 backdrop-blur-sm ring-1 ring-teal-200/30">
                     <div className="py-1">
-                      <a
-                        href="#"
-                        className="flex items-center px-4 py-2 text-sm text-teal-900/80 hover:bg-teal-100/50"
-                      >
-                        <User size={16} className="mr-2" />
-                        Mon Profil
-                      </a>
+
                       <button
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-sm text-teal-900/80 hover:bg-teal-100/50 w-full"
@@ -131,10 +125,10 @@ export default function UserRegret() {
             bg-gradient-to-br from-teal-500/10 to-slate-500/10 
             ${isPulsing ? 'animate-pulse-regret' : ''}
           `}></div>
-          
+
           {/* Feuille animée 1 */}
           <div className="absolute -top-3 -right-2 w-4 h-4 bg-teal-500/30 rounded-full animate-leaf-fall-1 opacity-70"></div>
-          
+
           {/* Bouton principal */}
           <button
             onClick={handleClick}
@@ -152,7 +146,7 @@ export default function UserRegret() {
           >
             {/* Animation de fond */}
             <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 via-slate-500/10 to-teal-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-            
+
             {/* Contenu du bouton */}
             <div className="relative flex items-center justify-center">
               {!isHovered ? (
@@ -160,14 +154,11 @@ export default function UserRegret() {
               ) : (
                 <div className="flex items-center text-white/90 font-medium">
                   <MessageSquare size={20} className="mr-2" />
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {showChat ? 'Fermer' : 'Ouvrir'}
-                  </span>
                 </div>
               )}
             </div>
           </button>
-          
+
           {/* Feuille animée 2 */}
           <div className="absolute -bottom-2 -left-3 w-3 h-3 bg-slate-400/40 rounded-full animate-leaf-fall-2 opacity-60"></div>
         </div>
@@ -176,9 +167,17 @@ export default function UserRegret() {
 
         {/* Section publications */}
         <div className="space-y-6">
-          <button 
-            onClick={goToAddPublication}
-            className={`
+
+
+          <div className="flex justify-between">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-semibold flex items-center gap-2 text-teal-900/80">
+                📜 Archives des remords
+              </h2>
+            </div>
+            <button
+              onClick={goToAddPublication}
+              className={`
               flex items-center gap-2 px-5 py-3 rounded-xl
               bg-gradient-to-br from-teal-600/90 to-slate-500/90
               text-teal-50 font-medium
@@ -190,34 +189,29 @@ export default function UserRegret() {
               border border-teal-300/30
               z-5
             `}
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              <span className="text-xl">✍️</span>
-              <span>Exprimer un regret</span>
-            </span>
-            
-            {/* Effet de transparence */}
-            <span className="
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span className="text-xl">✍️</span>
+                <span>Exprimer un regret</span>
+              </span>
+
+              {/* Effet de transparence */}
+              <span className="
               absolute inset-0 rounded-xl
               bg-gradient-to-b from-white/10 to-transparent
               opacity-0 group-hover:opacity-100
               transition-opacity duration-700
             "></span>
-            
-            {/* Trait de soulignement discret */}
-            <span className="
+
+              {/* Trait de soulignement discret */}
+              <span className="
               absolute bottom-2 left-1/2 w-16 h-0.5
               bg-white/40 rounded-full
               opacity-0 group-hover:opacity-70
               transition-opacity duration-500
               transform -translate-x-1/2
             "></span>
-          </button>
-
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold flex items-center gap-2 text-teal-900/80">
-              📜 Archives des remords
-            </h2>
+            </button>
           </div>
 
           {publications.length > 0 ? (

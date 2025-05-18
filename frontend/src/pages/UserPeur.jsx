@@ -48,8 +48,8 @@ export default function UserPeur() {
         const data = Array.isArray(res.data)
           ? res.data
           : Array.isArray(res.data.results)
-          ? res.data.results
-          : [];
+            ? res.data.results
+            : [];
         setPublications(data);
       } catch (err) {
         console.error("Erreur lors de la récupération des publications :", err);
@@ -65,8 +65,8 @@ export default function UserPeur() {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-600 to-purple-800 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-violet-700/30">
-                  T
+                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-violet-600 to-purple-800 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-violet-700/30">
+                  <img src="/logo.png" alt="" className="w-10 h-10" />
                 </div>
                 <span className="ml-3 font-medium text-violet-900 text-lg">
                   The.EndPage
@@ -82,7 +82,7 @@ export default function UserPeur() {
                     className="bg-violet-900/10 flex items-center px-3 py-2 rounded-full text-violet-900 hover:bg-violet-900/20 transition-colors duration-200 focus:outline-none border border-violet-900/20"
                   >
                     <User size={20} className="mr-2" />
-                    <span className="mr-1">Pierre</span>
+
                     <ChevronDown size={16} />
                   </button>
                 </div>
@@ -90,13 +90,7 @@ export default function UserPeur() {
                 {isProfileOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-violet-50/95 backdrop-blur-sm ring-1 ring-violet-900/10">
                     <div className="py-1">
-                      <a
-                        href="#"
-                        className="flex items-center px-4 py-2 text-sm text-violet-900 hover:bg-violet-100/50"
-                      >
-                        <User size={16} className="mr-2" />
-                        Mon Profil
-                      </a>
+
                       <button
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-sm text-violet-900 hover:bg-violet-100/50 w-full"
@@ -132,7 +126,7 @@ export default function UserPeur() {
             ${isPulsing ? 'animate-pulse-fear' : ''}
             shadow-[0_0_15px_5px_rgba(124,58,237,0.3)]
           `}></div>
-          
+
           {/* Effet de halo violet */}
           <div className={`
             absolute inset-0 rounded-full 
@@ -141,7 +135,7 @@ export default function UserPeur() {
             transition-all duration-1000
             ${isHovered ? 'animate-halo-fear' : ''}
           `}></div>
-          
+
           {/* Bouton principal */}
           <button
             onClick={handleClick}
@@ -160,7 +154,7 @@ export default function UserPeur() {
           >
             {/* Animation de fond énigmatique */}
             <div className="absolute inset-0 bg-gradient-to-br from-violet-600/40 via-purple-700/30 to-violet-800/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-gradient-fear"></div>
-            
+
             {/* Contenu du bouton */}
             <div className="relative flex items-center justify-center">
               {!isHovered ? (
@@ -169,17 +163,16 @@ export default function UserPeur() {
                 <div className="flex items-center text-white/90 font-medium">
                   <MessageSquare size={20} className="mr-2 animate-bounce-fear" />
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {showChat ? 'Fermer' : 'Ouvrir'}
                   </span>
                 </div>
               )}
             </div>
-            
+
             {/* Effet "yeux" qui apparaissent */}
             <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             <div className="absolute top-1/4 right-1/4 w-2 h-2 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100"></div>
           </button>
-          
+
           {/* Particules énigmatiques */}
           <div className="absolute -top-2 -left-2 w-2 h-2 bg-violet-400/70 rounded-full animate-float-fear-1 opacity-70"></div>
           <div className="absolute -bottom-3 -right-3 w-3 h-3 bg-purple-500/60 rounded-full animate-float-fear-2 opacity-60"></div>
@@ -190,13 +183,21 @@ export default function UserPeur() {
 
         {/* Section publications */}
         <div className="space-y-6 mx-auto">
-          <button 
-            onClick={goToAddPublication}
-            className={`
+
+
+          <div className="flex justify-between">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-semibold flex items-center gap-2 text-violet-900/90">
+                🕸️ Mur des murmures
+              </h2>
+            </div>
+            <button
+              onClick={goToAddPublication}
+              className={`
               flex items-center gap-2 px-5 py-3 rounded-xl
               bg-gradient-to-br from-violet-700/90 to-purple-800/90
               text-violet-100 font-medium
-              shadow-lg hover:shadow-xl
+              shadow-lg
               transform transition-all duration-300
               hover:translate-y-[-2px]
               relative overflow-hidden
@@ -204,39 +205,34 @@ export default function UserPeur() {
               border border-violet-600/40
               hover:shadow-[0_5px_15px_-3px_rgba(124,58,237,0.3)]
             `}
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              <span className="text-xl">👻</span>
-              <span>Confier vos peurs</span>
-            </span>
-            
-            {/* Effet de brume */}
-            <span className="
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <span className="text-xl">👻</span>
+                <span>Confier vos peurs</span>
+              </span>
+
+              {/* Effet de brume */}
+              <span className="
               absolute inset-0 rounded-xl
               bg-gradient-to-b from-white/10 to-transparent
               opacity-0 group-hover:opacity-100
               transition-opacity duration-500
             "></span>
-            
-            {/* Effet d'yeux qui apparaissent */}
-            <span className="
+
+              {/* Effet d'yeux qui apparaissent */}
+              <span className="
               absolute top-3 left-4 w-1.5 h-1.5
               bg-white rounded-full
               opacity-0 group-hover:opacity-80
               transition-opacity duration-700
             "></span>
-            <span className="
+              <span className="
               absolute top-3 right-4 w-1.5 h-1.5
               bg-white rounded-full
               opacity-0 group-hover:opacity-80
               transition-opacity duration-700 delay-100
             "></span>
-          </button>
-
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold flex items-center gap-2 text-violet-900/90">
-              🕸️ Mur des murmures
-            </h2>
+            </button>
           </div>
 
           {publications.length > 0 ? (

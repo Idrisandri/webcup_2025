@@ -6,6 +6,8 @@ import api from "../api.js";
 import Publications from "../components/Publications.jsx";
 import { User, LogOut, ChevronDown, MessageSquare } from "lucide-react";
 
+
+
 import ChatPopup from "../components/ChatPopup.jsx";
 import '../assets/chatBtn.css';
 
@@ -21,7 +23,7 @@ export default function UserColere() {
     const pulseInterval = setInterval(() => {
       setIsPulsing(prev => !prev);
     }, 2000);
-    
+
     return () => clearInterval(pulseInterval);
   }, []);
 
@@ -51,8 +53,8 @@ export default function UserColere() {
         const data = Array.isArray(res.data)
           ? res.data
           : Array.isArray(res.data.results)
-          ? res.data.results
-          : [];
+            ? res.data.results
+            : [];
         setPublications(data);
       } catch (err) {
         console.error("Erreur lors de la récupération des publications :", err);
@@ -68,8 +70,8 @@ export default function UserColere() {
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                  T
+                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                  <img src="/logo.png" alt="" className="w-10 h-10" />
                 </div>
                 <span className="ml-3 font-medium text-gray-800 text-lg">
                   The.EndPage
@@ -85,7 +87,7 @@ export default function UserColere() {
                     className="bg-red-200 flex items-center px-3 py-2 rounded-full text-gray-800 hover:bg-red-300 transition-colors duration-200 focus:outline-none"
                   >
                     <User size={20} className="mr-2" />
-                    <span className="mr-1">Pierre</span>
+
                     <ChevronDown size={16} />
                   </button>
                 </div>
@@ -93,13 +95,7 @@ export default function UserColere() {
                 {isProfileOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
-                      <a
-                        href="#"
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-red-100"
-                      >
-                        <User size={16} className="mr-2" />
-                        Mon Profil
-                      </a>
+
                       <button
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-red-100 w-full"
@@ -129,7 +125,7 @@ export default function UserColere() {
         {/* Bouton chat avec thème colère */}
         <div className="fixed bottom-6 right-6 z-50">
           <div className={`absolute inset-0 rounded-full bg-red-400 opacity-20 ${isPulsing ? 'animate-ping' : ''}`}></div>
-          
+
           <button
             onClick={handleClick}
             onMouseEnter={() => setIsHovered(true)}
@@ -145,23 +141,21 @@ export default function UserColere() {
             `}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-orange-500 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-size-200 animate-gradient-x"></div>
-            
+
             <div className="relative flex items-center justify-center">
               {!isHovered ? (
                 <MessageSquare size={24} className="text-white" />
               ) : (
                 <div className="flex items-center text-white font-medium">
                   <MessageSquare size={20} className="mr-2" />
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {showChat ? 'Fermer le Chat' : 'Ouvrir le Chat'}
-                  </span>
+
                 </div>
               )}
             </div>
           </button>
-          
+
           <div className="absolute inset-0 -m-1 rounded-full bg-red-300 opacity-30 blur-md group-hover:opacity-50 transition-opacity duration-500"></div>
-          
+
           <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-300 rounded-full animate-float-slow opacity-70"></div>
           <div className="absolute -top-3 -left-2 w-2 h-2 bg-red-400 rounded-full animate-float-medium opacity-60"></div>
           <div className="absolute -bottom-2 -right-3 w-4 h-4 bg-orange-400 rounded-full animate-float-fast opacity-50"></div>
@@ -170,11 +164,19 @@ export default function UserColere() {
         {showChat && <ChatPopup onClose={() => setShowChat(false)} />}
 
         <div className="space-y-6">
-          <button 
+          
+
+          <div className="flex justify-between">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-semibold flex items-center gap-2 text-red-800">
+                💢 Derniers éclats
+              </h2>
+            </div>
+            <button
             onClick={goToAddPublication}
             className={`
               flex items-center gap-2 px-5 py-3 rounded-xl
-              bg-gradient-to-r from-red-500 to-orange-400
+              bg-gradient-to-r from-red-400 to-orange-300
               text-red-900 font-medium
               shadow-lg hover:shadow-xl
               transform transition-all duration-300
@@ -188,17 +190,12 @@ export default function UserColere() {
               <span className="text-xl">💥</span>
               <span>Lâchez votre rage</span>
             </span>
-            
+
             <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-            
+
             <span className="absolute top-1/4 left-2 w-1 h-1 bg-white rounded-full opacity-70 group-hover:opacity-100 transition-opacity duration-300"></span>
             <span className="absolute top-3/4 right-2 w-1.5 h-1.5 bg-white rounded-full opacity-50 group-hover:opacity-90 transition-opacity duration-500 delay-100"></span>
           </button>
-
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold flex items-center gap-2 text-red-800">
-              💢 Derniers éclats
-            </h2>
           </div>
 
           {publications.length > 0 ? (

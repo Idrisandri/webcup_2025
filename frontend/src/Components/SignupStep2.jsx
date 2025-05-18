@@ -5,7 +5,8 @@ import api from '../api.js';
 export default function SignupStep2() {
   const { state } = useLocation(); // { userId }
   const navigate = useNavigate();
-  const [emotion, setEmotion] = useState('joie');
+  const [emotion, setEmotion] = useState(null); // Pas de sélection par défaut
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const emotions = [
     { value: 'joie', label: 'Joie' },
@@ -17,45 +18,111 @@ export default function SignupStep2() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    
+    if (!emotion) {
+      alert('Veuillez sélectionner une émotion');
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
       await api.post('accounts/signup-step2/', {
-        user_id: state.userId,
+        user_id: state?.userId,
         emotion,
       });
       navigate('/login');
     } catch (err) {
       console.error('Erreur signup-step2 :', err.response?.data || err);
-      alert(err.response?.data?.error || 'Erreur inconnue.');
+      alert(err.response?.data?.error || 'Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 max-w-md mx-auto">
-      <div className="block font-medium mb-2">Choisissez votre émotion :</div>
+    <form onSubmit={handleSubmit} className="p-4 mx-auto max-w-4xl">
+      <div className="block font-bold mb-6 text-center text-3xl text-purple-800">
+        Comment vous sentez-vous ?
+      </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        {emotions.map(opt => (
-          <button
+      {/* Version desktop - Grille asymétrique originale */}
+      <div className="hidden md:block">
+        <div className="overflow-x-hidden">
+          <div className="grid grid-cols-5 grid-rows-5 gap-4 w-max mx-auto p-4">
+            {emotions.map((opt, index) => {
+              let cellClasses = "";
+              let cellSize = "min-w-[270px] min-h-[200px]";
+              
+              switch(index) {
+                case 0:
+                  cellClasses = "col-span-2 row-span-2";
+                  break;
+                case 1:
+                  cellClasses = "row-span-3 col-start-3";
+                  break;
+                case 2:
+                  cellClasses = "row-span-3 row-start-3";
+                  break;
+                case 3:
+                  cellClasses = "row-span-3 row-start-3";
+                  break;
+                case 4:
+                  cellClasses = "row-span-2 col-start-3 row-start-4";
+                  break;
+                default:
+                  cellClasses = "col-span-1 row-span-1";
+              }
+
+              return (
+                <button
+                  type="button"
+                  key={opt.value}
+                  onClick={() => setEmotion(opt.value)}
+                  className={`${cellClasses} ${cellSize} border-2 border-purple-200 rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-105 shadow-md ${
+                    emotion === opt.value
+                      ? 'bg-purple-700 text-white border-purple-700 shadow-lg'
+                      : 'bg-purple-50 text-purple-800 hover:bg-purple-100'
+                  }`}
+                >
+                  <span className="text-lg font-medium px-2 text-center">
+                    {opt.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      <div className="md:hidden space-y-4 px-4">
+        {emotions.map((opt) => (
+          <button 
             type="button"
             key={opt.value}
             onClick={() => setEmotion(opt.value)}
-            className={`p-4 border rounded text-center transition ${
+            className={`w-full py-6 border-2 border-purple-200 rounded-lg flex items-center justify-center transition-all ${
               emotion === opt.value
-                ? 'bg-green-600 text-white border-green-600'
-                : 'bg-white text-gray-800 hover:bg-gray-100'
+                ? 'bg-purple-700 text-white border-purple-700 shadow-lg'
+                : 'bg-purple-50 text-purple-800 hover:bg-purple-100'
             }`}
           >
-            {opt.label}
+            <span className="text-lg font-medium">{opt.label}</span>
           </button>
         ))}
       </div>
 
-      <button
-        type="submit"
-        className="w-full py-2 rounded bg-green-600 text-white hover:bg-green-700"
-      >
-        Terminer
-      </button>
+      <div className="mt-8 text-center">
+        <button
+          type="submit"
+          disabled={isSubmitting || !emotion}
+          className={`py-3 px-8 rounded-full text-white transition-colors duration-300 shadow-lg ${
+            isSubmitting || !emotion
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-purple-700 hover:bg-purple-800 hover:shadow-xl'
+          } focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50`}
+        >
+          {isSubmitting ? 'Enregistrement...' : 'Terminer'}
+        </button>
+      </div>
     </form>
   );
 }
