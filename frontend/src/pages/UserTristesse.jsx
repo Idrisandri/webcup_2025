@@ -5,6 +5,7 @@ import api from "../api.js";
 import Publications from "../components/Publications.jsx";
 import { User, LogOut, ChevronDown, MessageSquare } from "lucide-react";
 import ChatPopup from "../components/ChatPopup.jsx";
+import { motion } from "framer-motion";
 import '../assets/chatBtn.css';
 
 export default function UserTristesse() {
@@ -18,7 +19,7 @@ export default function UserTristesse() {
   useEffect(() => {
     const pulseInterval = setInterval(() => {
       setIsPulsing(prev => !prev);
-    }, 3000); // Ralenti pour un effet plus mélancolique
+    }, 3000);
     return () => clearInterval(pulseInterval);
   }, []);
 
@@ -82,7 +83,6 @@ export default function UserTristesse() {
                     className="bg-blue-100 flex items-center px-3 py-2 rounded-full text-blue-900 hover:bg-blue-200 transition-colors duration-300 focus:outline-none"
                   >
                     <User size={20} className="mr-2" />
-
                     <ChevronDown size={16} />
                   </button>
                 </div>
@@ -90,7 +90,6 @@ export default function UserTristesse() {
                 {isProfileOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-blue-100">
                     <div className="py-1">
-
                       <button
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-sm text-blue-900 hover:bg-blue-50 w-full"
@@ -107,15 +106,29 @@ export default function UserTristesse() {
         </div>
       </nav>
 
-      <div className="p-4 text-center space-y-6 mt-6">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2">
+      {/* Effet de brume flottante */}
+      <div className="mist"></div>
+
+      <div className="mx-10 text-center space-y-6 mt-6 relative z-10">
+        <motion.h1
+          className="text-3xl md:text-4xl font-bold mb-2"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
           <span className="bg-gradient-to-r from-blue-700 via-blue-500 to-blue-300 text-transparent bg-clip-text">
             🌧️ Un espace pour vos mots silencieux 🌧️
           </span>
-        </h1>
-        <p className="text-blue-800/80 mt-3 text-lg">
+        </motion.h1>
+
+        <motion.p
+          className="text-blue-800/80 mt-3 text-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+        >
           Partagez ce qui pèse sur votre cœur dans un lieu d'écoute bienveillante
-        </p>
+        </motion.p>
 
         {/* Bouton chat mélancolique */}
         <div className="fixed bottom-6 right-6 z-50">
@@ -144,15 +157,12 @@ export default function UserTristesse() {
               ) : (
                 <div className="flex items-center text-white/90 font-medium">
                   <MessageSquare size={20} className="mr-2" />
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  </span>
                 </div>
               )}
             </div>
           </button>
 
           <div className="absolute inset-0 -m-1 rounded-full bg-blue-200/20 blur-sm group-hover:opacity-30 transition-opacity duration-500"></div>
-
           <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-300/50 rounded-full animate-float-slow opacity-50"></div>
           <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-blue-400/40 rounded-full animate-float-medium opacity-60"></div>
         </div>
@@ -161,38 +171,42 @@ export default function UserTristesse() {
 
         {/* Section publications */}
         <div className="space-y-6">
-
-
-          <div className="flex justify-between">
+          <motion.div
+            className="flex justify-between gap-5 md:gap-0 flex-col md:flex-row"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+          >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-semibold flex items-center gap-2 text-blue-800/90">
                 🌫️ Mur des confidences
               </h2>
             </div>
-            <button
+
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
               onClick={goToAddPublication}
               className={`
-              flex items-center gap-2 px-5 py-3 rounded-xl
-              bg-gradient-to-br from-blue-500/90 to-blue-600/90
-              text-blue-50 font-medium
-              shadow-inner
-              transform transition-all duration-300
-              hover:translate-y-[-1px]
-              relative overflow-hidden
-              group
-              border border-blue-300/30
-            `}
+                flex items-center gap-2 px-5 py-3 rounded-xl
+                bg-gradient-to-br from-blue-500/90 to-blue-600/90
+                text-blue-50 font-medium
+                shadow-inner
+                transform transition-all duration-300
+                hover:translate-y-[-1px]
+                relative overflow-hidden
+                group
+                border border-blue-300/30
+              `}
             >
               <span className="relative z-10 flex items-center gap-2">
                 <span className="text-xl">💧</span>
                 <span>Écrire ce qui vous pèse</span>
               </span>
-
               <span className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
-
               <span className="absolute bottom-2 left-1/2 w-16 h-1 bg-white/30 rounded-full opacity-0 group-hover:opacity-70 transition-opacity duration-500 transform -translate-x-1/2"></span>
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
 
           {publications.length > 0 ? (
             <Publications publications={publications} darkMode={false} />
@@ -205,8 +219,9 @@ export default function UserTristesse() {
         </div>
       </div>
 
-      {/* Animations CSS */}
+      {/* Animations CSS et brume */}
       <style jsx>{`
+        
         @keyframes pulse-slow {
           0%, 100% { opacity: 0.1; transform: scale(1); }
           50% { opacity: 0.2; transform: scale(1.01); }
@@ -219,6 +234,10 @@ export default function UserTristesse() {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-5px); }
         }
+        @keyframes mist {
+          0%, 100% { transform: translateY(0); opacity: 0.2; }
+          50% { transform: translateY(-10px); opacity: 0.3; }
+        }
         .animate-pulse-slow {
           animation: pulse-slow 3s infinite ease-in-out;
         }
@@ -227,6 +246,15 @@ export default function UserTristesse() {
         }
         .animate-float-medium {
           animation: float-medium 3.5s infinite ease-in-out;
+        }
+        .mist {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
+          pointer-events: none;
+          background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+          animation: mist 6s ease-in-out infinite;
+          z-index: 0;
         }
       `}</style>
     </>

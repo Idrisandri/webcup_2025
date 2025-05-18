@@ -105,14 +105,14 @@ export default function PublicationDetail() {
       </div>
 
       {/* Stats */}
-      <div className="flex space-x-6 text-sm text-[#8d6e63] mb-6 border-t border-dashed border-[#d7ccc8] pt-4">
+      <div className="flex justify-between text-sm text-[#8d6e63] mb-6 border-t border-dashed border-[#d7ccc8] pt-4">
         <span>👁️ {publication.views} vues</span>
         <span>❤️ {publication.reactions} réactions</span>
         <span>📤 {publication.shares} partages</span>
       </div>
-
+        <div className="w-full h-0.5 bg-black my-3"></div>
       {/* Buttons - Functionality remains exactly the same */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap justify-between">
         <button
           onClick={addOrRemoveReaction}
           className={`bg-purple-200/50 text-[#5d4037] py-2 px-6 rounded-full  text-base cursor-pointer transition-all duration-300 shadow hover:bg-purple-400/50 hover:-translate-y-0.5 hover:shadow-md ${reacted ? 'opacity-70' : ''}`}

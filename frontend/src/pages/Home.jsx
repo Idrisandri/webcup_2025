@@ -249,7 +249,7 @@ const Home = () => {
           border-radius: 16px;
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
           backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           padding: 2rem;
           transition: all 0.3s ease;
@@ -387,19 +387,19 @@ const Home = () => {
             <span className="text-gradient">Explorez</span> nos émotions
           </p>
           <div className="flex space-x-6 text-purple-200">
-            <BiHappyBeaming className="w-12 h-12 md:w-16 md:h-16 animate-float-outer" />
-            <FaRegSadCry className="w-12 h-12 md:w-16 md:h-16 animate-float-inner" />
-            <BiAngry className="w-12 h-12 md:w-16 md:h-16 animate-float-outer" />
-            <FaSurprise className="w-12 h-12 md:w-16 md:h-16 animate-float-inner" />
+            <BiHappyBeaming className="w-10 h-10 md:w-16 md:h-16 animate-float-outer" />
+            <FaRegSadCry className="w-10 h-10 md:w-16 md:h-16 animate-float-inner" />
+            <BiAngry className="w-10 h-10 md:w-16 md:h-16 animate-float-outer" />
+            <FaSurprise className="w-10 h-10 md:w-16 md:h-16 animate-float-inner" />
           </div>
         </div>
 
         {/* Bouton d'action principal */}
         <div
-          className="absolute bottom-16 text-transition pointer-events-auto
+          className="absolute md:bottom-16 text-transition pointer-events-auto 
              max-[1129px]:left-1/2 max-[1129px]:right-auto max-[1129px]:transform max-[1129px]:-translate-x-1/2
              min-[1130px]:right-8
-             md:bottom-16
+             bottom-3
              md:min-[1130px]:right-16
              lg:min-[1130px]:right-24"
           style={{
@@ -428,7 +428,7 @@ const Home = () => {
             <img
               src={img.src}
               alt={`Slide ${index + 1}`}
-              className="max-h-[70vh] max-w-[90vw] object-contain"
+              className="md:max-h-[70vh] max-h-[30vh] md:max-w-[90vw] object-contain"
               style={{
                 filter: "drop-shadow(0 0 30px rgba(139, 92, 246, 0.6))",
                 transform: `translate(${(mousePosition.x - 0.5) * -20}px, ${
