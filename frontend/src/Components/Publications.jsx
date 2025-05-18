@@ -59,13 +59,13 @@ export default function Publications({ publications = null, darkMode = false }) 
             } relative`}
           >
             {/* Mini-barre rouge décorative */}
-            <div className="h-2 bg-red-500" />
+            <div className="h-2 bg-neutral-500" />
 
             <div className="p-4">
               {/* Titre + auteur */}
               <div className="flex justify-between mb-3">
                 <div>
-                  <h3 className="font-bold group-hover:text-red-500">
+                  <h3 className="font-bold group-hover:text-neutral-500">
                     {page.title}
                   </h3>
                   <div className="text-sm text-neutral-500">
@@ -97,7 +97,7 @@ export default function Publications({ publications = null, darkMode = false }) 
                     <Share2 className="inline w-4 h-4" /> {page.shares ?? 0}
                   </span>
                 </div>
-                <button className="bg-red-500 text-white px-3 py-1 rounded-full flex items-center">
+                <button className="bg-neutral-500 text-white px-3 py-1 rounded-full flex items-center">
                   Lire <ArrowUpRight className="w-3 h-3 ml-1" />
                 </button>
               </div>
