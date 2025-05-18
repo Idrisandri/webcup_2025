@@ -22,7 +22,7 @@ export default function Login() {
 
   return (
 
-<div className="min-h-screen flex bg-gray-900">
+<div className="min-h-screen flex bg-gray-100">
 <a 
     href="/" 
     className="absolute top-6 left-6 text-purple-300 hover:text-white transition-colors duration-200"
@@ -53,7 +53,7 @@ export default function Login() {
 
 
   <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-    <form onSubmit={handleSubmit} className="max-w-md w-full bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+    <form onSubmit={handleSubmit} className="max-w-md w-full bg-gray-200 rounded-xl shadow-2xl overflow-hidden">
       <div className="px-8 pt-8 pb-4">
         <h2 className="text-center text-2xl font-extrabold text-purple-700 mb-1">
           Connexion
@@ -73,7 +73,7 @@ export default function Login() {
               type="email"
               value={creds.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               placeholder="Votre adresse email"
               required
             />
@@ -88,15 +88,11 @@ export default function Login() {
               type="password"
               value={creds.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               placeholder="Votre mot de passe"
               required
             />
-            <div className="text-right mt-1">
-              <a href="#" className="text-xs text-purple-400 hover:text-purple-300">
-                Mot de passe oublié?
-              </a>
-            </div>
+           
           </div>
 
           <div className="pt-2">

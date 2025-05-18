@@ -40,7 +40,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-900">
+    <div className="min-h-screen flex bg-gray-100">
       {/* Partie gauche - Illustration */}
       <div className="hidden md:flex w-1/2 bg-gradient-to-br from-gray-900 to-purple-900 items-center justify-center p-12">
         <div className="text-center">
@@ -52,7 +52,7 @@ export default function Signup() {
 
       {/* Partie droite - Formulaire */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <form onSubmit={handleSubmit} className="max-w-md w-full bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+        <form onSubmit={handleSubmit} className="max-w-md w-full bg-gray-200 rounded-xl shadow-2xl overflow-hidden">
           <a
             href="/"
             className="absolute top-6 left-6 text-purple-300 hover:text-white transition-colors duration-200"
@@ -91,7 +91,7 @@ export default function Signup() {
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Choisissez un nom d'utilisateur"
                   required
                 />
@@ -106,7 +106,7 @@ export default function Signup() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Votre adresse email"
                   required
                 />
@@ -121,7 +121,7 @@ export default function Signup() {
                   type="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Créez un mot de passe sécurisé"
                   required
                 />
@@ -136,7 +136,7 @@ export default function Signup() {
                   type="date"
                   value={formData.date_of_birth}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 border border-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   required
                 />
               </div>
