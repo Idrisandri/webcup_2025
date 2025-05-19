@@ -44,12 +44,14 @@ export default function UserPeur() {
     };
     fetchPublications();
   }, []);
-
-  // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 40 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-    exit: { opacity: 0, y: 40, transition: { duration: 0.3 } }
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
+    exit: { opacity: 0, y: 40, transition: { duration: 0.3 } },
   };
 
   const bgVariants = {
@@ -57,10 +59,10 @@ export default function UserPeur() {
       background: [
         "linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%)",
         "linear-gradient(135deg, #f3e8ff 0%, #ede9fe 100%)",
-        "linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%)"
+        "linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%)",
       ],
-      transition: { duration: 8, repeat: Infinity, repeatType: "loop" }
-    }
+      transition: { duration: 8, repeat: Infinity, repeatType: "loop" },
+    },
   };
 
   return (
@@ -89,14 +91,20 @@ export default function UserPeur() {
                   boxShadow: [
                     "0 0 0px 0px #a78bfa",
                     "0 0 24px 6px #a78bfa, 0 0 12px 2px #f472b6",
-                    "0 0 0px 0px #a78bfa"
-                  ]
+                    "0 0 0px 0px #a78bfa",
+                  ],
                 }}
-                transition={{ duration: 4, repeat: Infinity, repeatType: "loop" }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
               >
                 <img src="/logo.png" alt="Logo" className="w-10 h-10" />
               </motion.div>
-              <span className="ml-3 font-medium text-violet-900 text-lg">The.EndPage</span>
+              <span className="ml-3 font-medium text-violet-900 text-lg">
+                The.EndPage
+              </span>
             </motion.div>
             <div className="flex items-center relative">
               <button
@@ -155,8 +163,6 @@ export default function UserPeur() {
         >
           Exprimez ce qui vous hante dans ce sanctuaire discret
         </motion.p>
-
-        {/* Bouton Chat animé */}
         <motion.div
           className="fixed bottom-6 right-6 z-50"
           animate={{ scale: isHovered ? 1.1 : 1, rotate: isHovered ? 2 : 0 }}
@@ -171,7 +177,6 @@ export default function UserPeur() {
             animate={{ opacity: 1, scale: 1 }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Yeux */}
             <motion.div
               className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/80 rounded-full"
               initial={{ opacity: 0 }}
@@ -184,11 +189,13 @@ export default function UserPeur() {
               animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 2 : 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             />
-
-            {/* Icône */}
             <motion.div
               animate={{ y: isHovered ? -3 : 0 }}
-              transition={{ repeat: Infinity, repeatType: "reverse", duration: 1 }}
+              transition={{
+                repeat: Infinity,
+                repeatType: "reverse",
+                duration: 1,
+              }}
               className="text-white/90"
             >
               <MessageSquare size={24} />
@@ -209,8 +216,6 @@ export default function UserPeur() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Publications */}
         <motion.div
           className="space-y-6 mx-auto"
           initial={{ opacity: 0, y: 30 }}

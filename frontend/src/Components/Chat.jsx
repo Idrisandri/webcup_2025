@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
-import api from '../api.js';
+import React, { useState } from "react";
+import api from "../api.js";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSend = async () => {
     if (!prompt.trim()) return;
-    const userMessage = { sender: 'user', text: prompt };
-    setMessages(prev => [...prev, userMessage]);
+    const userMessage = { sender: "user", text: prompt };
+    setMessages((prev) => [...prev, userMessage]);
     setLoading(true);
     try {
-      const response = await api.post('gemini/', { prompt });
-      const botMessage = { sender: 'bot', text: response.data.response };
-      setMessages(prev => [...prev, botMessage]);
+      const response = await api.post("gemini/", { prompt });
+      const botMessage = { sender: "bot", text: response.data.response };
+      setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
-      console.error('Erreur API :', err);
-      const errorMessage = { sender: 'bot', text: 'Erreur lors de la génération de la réponse.' };
-      setMessages(prev => [...prev, errorMessage]);
+      console.error("Erreur API :", err);
+      const errorMessage = {
+        sender: "bot",
+        text: "Erreur lors de la génération de la réponse.",
+      };
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
-      setPrompt('');
+      setPrompt("");
     }
   };
 
@@ -32,7 +35,11 @@ export default function Chat() {
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`p-2 rounded max-w-xs ${msg.sender === 'user' ? 'bg-gray-200 self-end' : 'bg-blue-100 self-start'}`}
+            className={`p-2 rounded max-w-xs ${
+              msg.sender === "user"
+                ? "bg-gray-200 self-end"
+                : "bg-blue-100 self-start"
+            }`}
           >
             {msg.text}
           </div>
@@ -42,18 +49,22 @@ export default function Chat() {
         <input
           type="text"
           value={prompt}
-          onChange={e => setPrompt(e.target.value)}
+          onChange={(e) => setPrompt(e.target.value)}
           placeholder="Votre question..."
           className="flex-1 p-2 border rounded"
-          onKeyDown={e => { if (e.key === 'Enter') handleSend(); }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSend();
+          }}
           disabled={loading}
         />
         <button
           onClick={handleSend}
-          className={`px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
           disabled={loading}
         >
-          {loading ? 'Envoi...' : 'Envoyer'}
+          {loading ? "Envoi..." : "Envoyer"}
         </button>
       </div>
     </div>

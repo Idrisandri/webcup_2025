@@ -5,7 +5,7 @@ import api from "../api.js";
 import Publications from "../components/Publications.jsx";
 import { User, LogOut, ChevronDown, MessageSquare } from "lucide-react";
 import ChatPopup from "../components/ChatPopup.jsx";
-import { motion, AnimatePresence } from "framer-motion"; // <-- Ajouté ici
+import { motion, AnimatePresence } from "framer-motion";
 import "../assets/chatBtn.css";
 
 export default function UserColere() {
@@ -133,7 +133,6 @@ export default function UserColere() {
           Un espace cathartique où chaque mot libère ce qui doit brûler
         </motion.p>
 
-        {/* Bouton chat animé */}
         <motion.div
           className="fixed bottom-6 right-6 z-50"
           initial={{ opacity: 0, y: 30 }}
@@ -192,8 +191,6 @@ export default function UserColere() {
                 💢 Derniers éclats
               </h2>
             </motion.div>
-
-            {/* Bouton animé */}
             <motion.button
               onClick={goToAddPublication}
               whileHover={{ scale: 1.05 }}
@@ -208,8 +205,6 @@ export default function UserColere() {
               <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
             </motion.button>
           </div>
-
-          {/* Publications animées */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

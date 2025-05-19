@@ -1,0 +1,190 @@
+
+
+        body {
+          font-family: "Inter", "SF Pro Display", -apple-system,
+            BlinkMacSystemFont, sans-serif;
+        }
+
+        .home-container {
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+        }
+
+        /* Dégradé futuriste */
+        .futuristic-gradient {
+          background: radial-gradient(
+            circle at center,
+            #e9d5ff 0%,
+            /* violet clair */ #3b2250 30%,
+            /* violet très foncé */ #23272f 100%
+              /* gris très foncé à l'extérieur */
+          );
+          position: relative;
+        }
+
+        /* Effet de grille futuriste */
+        .futuristic-gradient::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image: linear-gradient(
+              to right,
+              rgba(126, 34, 206, 0.1) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              to bottom,
+              rgba(126, 34, 206, 0.1) 1px,
+              transparent 1px
+            );
+          background-size: 50px 50px;
+          pointer-events: none;
+        }
+
+        /* Effet de lumière */
+        .light-orb {
+          position: absolute;
+          width: 60vw;
+          height: 60vw;
+          background: radial-gradient(
+            circle at center,
+            rgba(167, 139, 250, 0.7) 0%,
+            rgba(139, 92, 246, 0.2) 50%,
+            transparent 80%
+          );
+          border-radius: 50%;
+          filter: blur(60px);
+          opacity: 0.8;
+          z-index: 0;
+          pointer-events: none;
+          transition: transform 0.6s ease-out;
+        }
+
+        /* Animations */
+        @keyframes fadeInOut {
+          0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+          }
+          15% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+          75% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+          }
+        }
+
+        @keyframes floatUpDown {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-15px) rotate(2deg);
+          }
+        }
+
+        @keyframes floatDownUp {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(15px) rotate(-2deg);
+          }
+        }
+
+        @keyframes pulse {
+          0%,
+          100% {
+            box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+          }
+          50% {
+            box-shadow: 0 0 20px 10px rgba(139, 92, 246, 0.4);
+          }
+        }
+
+        @keyframes sway {
+          0%,
+          100% {
+            transform: rotate(-2deg);
+          }
+          50% {
+            transform: rotate(2deg);
+          }
+        }
+
+        .animate-fade {
+          animation: fadeInOut 5s ease-in-out forwards;
+        }
+
+        .animate-float-outer {
+          animation: floatUpDown 4s ease-in-out infinite;
+          filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6));
+        }
+
+        .animate-float-inner {
+          animation: floatDownUp 4s ease-in-out infinite;
+          filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6));
+        }
+
+        .animate-sway {
+          animation: sway 6s ease-in-out infinite;
+        }
+
+        /* Transition texte avec blur */
+        .text-transition {
+          transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out,
+            filter 0.8s ease-in-out;
+        }
+
+        /* Styles pour texte futuriste */
+        .text-gradient {
+          background: linear-gradient(to right, #fff, #c4b5fd);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          display: inline-block;
+        }
+
+        .glass-card {
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: 16px;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 2rem;
+          transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+          background: rgba(255, 255, 255, 0.07);
+          transform: translateY(-5px);
+        }
+
+        
+
+        /* Optimisations pour mobile */
+        @media (max-width: 768px) {
+          .main-title {
+            font-size: 2rem;
+            line-height: 2.5rem;
+          }
+
+          .light-orb {
+            width: 100vw;
+            height: 100vw;
+            opacity: 0.6;
+          }
+        }

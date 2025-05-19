@@ -1,4 +1,3 @@
-// src/pages/UserRegret.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -7,6 +6,7 @@ import Publications from "../components/Publications.jsx";
 import { User, LogOut, ChevronDown, MessageSquare } from "lucide-react";
 import ChatPopup from "../components/ChatPopup.jsx";
 import "../assets/chatBtn.css";
+import "../assets/regret.css";
 
 export default function UserRegret() {
   const [isHovered, setIsHovered] = useState(false);
@@ -122,8 +122,6 @@ export default function UserRegret() {
         >
           Un espace pour déposer ce que vous auriez aimé dire autrement
         </motion.p>
-
-        {/* Bouton chat avec animation de feuilles tombantes */}
         <div className="fixed bottom-6 right-6 z-50">
           <div
             className={`absolute inset-0 rounded-full bg-gradient-to-br from-teal-500/10 to-slate-500/10 ${
@@ -199,66 +197,6 @@ export default function UserRegret() {
           </motion.div>
         </div>
       </motion.div>
-
-      {/* CSS animations personnalisées */}
-      <style jsx>{`
-        @keyframes pulse-regret {
-          0%, 100% {
-            opacity: 0.2;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.4;
-            transform: scale(1.02);
-          }
-        }
-        @keyframes float-regret {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-2px);
-          }
-        }
-        @keyframes leaf-fall-1 {
-          0% {
-            transform: translate(0, -10px) rotate(0deg);
-            opacity: 0;
-          }
-          20% {
-            opacity: 0.7;
-          }
-          100% {
-            transform: translate(15px, 30px) rotate(90deg);
-            opacity: 0;
-          }
-        }
-        @keyframes leaf-fall-2 {
-          0% {
-            transform: translate(0, -15px) rotate(30deg);
-            opacity: 0;
-          }
-          30% {
-            opacity: 0.6;
-          }
-          100% {
-            transform: translate(-10px, 25px) rotate(120deg);
-            opacity: 0;
-          }
-        }
-        .animate-pulse-regret {
-          animation: pulse-regret 4s infinite ease-in-out;
-        }
-        .animate-float-regret {
-          animation: float-regret 4s infinite ease-in-out;
-        }
-        .animate-leaf-fall-1 {
-          animation: leaf-fall-1 8s infinite ease-in;
-        }
-        .animate-leaf-fall-2 {
-          animation: leaf-fall-2 10s infinite ease-in;
-        }
-      `}</style>
     </>
   );
 }

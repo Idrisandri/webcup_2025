@@ -1,4 +1,3 @@
-// src/Components/AddPublication.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api.js";
@@ -58,7 +57,11 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
 
   const containerAnim = {
     initial: { opacity: 0, y: 50 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
     exit: { opacity: 0, y: -30, transition: { duration: 0.3 } },
   };
 
@@ -70,9 +73,14 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
   };
 
   const steps = [
-    /* 0 – titre */
-    <motion.section {...containerAnim} key="step-title" className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold text-purple-700 mb-6">DONNEZ UN TITRE À VOTRE IRONIE</h2>
+    <motion.section
+      {...containerAnim}
+      key="step-title"
+      className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg"
+    >
+      <h2 className="text-2xl font-bold text-purple-700 mb-6">
+        DONNEZ UN TITRE À VOTRE IRONIE
+      </h2>
       <motion.input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -88,12 +96,18 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
           transition={{ type: "spring", stiffness: 150, damping: 20 }}
         />
       </div>
-      <p className="text-lg font-medium text-purple-700">{Math.round(mood)} % de cynisme</p>
+      <p className="text-lg font-medium text-purple-700">
+        {Math.round(mood)} % de cynisme
+      </p>
     </motion.section>,
-
-    /* 1 – description */
-    <motion.section {...containerAnim} key="step-desc" className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold text-purple-700 mb-6">RÉVÉLEZ VOS PENSÉES</h2>
+    <motion.section
+      {...containerAnim}
+      key="step-desc"
+      className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg"
+    >
+      <h2 className="text-2xl font-bold text-purple-700 mb-6">
+        RÉVÉLEZ VOS PENSÉES
+      </h2>
       <motion.textarea
         rows="6"
         value={description}
@@ -103,9 +117,11 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
         {...pulseAnimation}
       />
     </motion.section>,
-
-    /* 2 – médias */
-    <motion.section {...containerAnim} key="step-media" className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-lg">
+    <motion.section
+      {...containerAnim}
+      key="step-media"
+      className="max-w-3xl mx-auto p-8 bg-white rounded-2xl shadow-lg"
+    >
       <div className="flex flex-wrap justify-center gap-6">
         {[
           { icon: "🖼️", accept: "image/*", setter: setImage, label: "Image" },
@@ -132,10 +148,14 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
         ))}
       </div>
     </motion.section>,
-
-    /* 3 – ton */
-    <motion.section {...containerAnim} key="step-tone" className="max-w-2xl mx-auto p-8 bg-gradient-to-br from-purple-100 to-purple-50 rounded-2xl shadow-lg text-white">
-      <h2 className="text-2xl font-bold mb-8 text-gray-900">CHOISIS TON EMOJI</h2>
+    <motion.section
+      {...containerAnim}
+      key="step-tone"
+      className="max-w-2xl mx-auto p-8 bg-gradient-to-br from-purple-100 to-purple-50 rounded-2xl shadow-lg text-white"
+    >
+      <h2 className="text-2xl font-bold mb-8 text-gray-900">
+        CHOISIS TON EMOJI
+      </h2>
       <div className="flex flex-wrap justify-center gap-4">
         {["😒", "🙌", "😂", "😢", "✨"].map((emo) => (
           <motion.button
@@ -144,7 +164,9 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
             onClick={() => setTone(emo)}
             whileHover={{ scale: 1.2 }}
             className={`w-16 h-16 rounded-full text-3xl flex items-center justify-center transition-all ${
-              tone === emo ? "bg-white text-purple-800 shadow-lg" : "bg-purple-900 bg-opacity-50"
+              tone === emo
+                ? "bg-white text-purple-800 shadow-lg"
+                : "bg-purple-900 bg-opacity-50"
             }`}
           >
             {emo}
@@ -153,9 +175,14 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
       </div>
     </motion.section>,
 
-    /* 4 – format */
-    <motion.section {...containerAnim} key="step-format" className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg">
-      <h2 className="text-2xl font-bold text-purple-700 mb-8">SÉLECTIONNE LE FORMAT FINAL</h2>
+    <motion.section
+      {...containerAnim}
+      key="step-format"
+      className="max-w-2xl mx-auto p-8 bg-white rounded-2xl shadow-lg"
+    >
+      <h2 className="text-2xl font-bold text-purple-700 mb-8">
+        SÉLECTIONNE LE FORMAT FINAL
+      </h2>
       <div className="flex flex-wrap justify-center gap-4">
         {["classic", "fati", "canva", "immersive"].map((f) => (
           <motion.button
@@ -189,13 +216,17 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
         disabled={step === 0}
         onClick={() => setStep((s) => s - 1)}
         className={`px-4 py-2 rounded-lg transition-all ${
-          step === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-purple-600 hover:shadow-md"
+          step === 0
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-purple-600 hover:shadow-md"
         }`}
       >
         ← Précédent
       </button>
 
-      <span className="font-medium">Étape {step + 1}/{steps.length}</span>
+      <span className="font-medium">
+        Étape {step + 1}/{steps.length}
+      </span>
 
       {step < steps.length - 1 ? (
         <button
@@ -228,9 +259,7 @@ export default function AddPublication({ authorId, onPublicationAdded }) {
         encType="multipart/form-data"
         className="max-w-4xl mx-auto space-y-6"
       >
-        <AnimatePresence mode="wait">
-          {steps[step]}
-        </AnimatePresence>
+        <AnimatePresence mode="wait">{steps[step]}</AnimatePresence>
         {nav}
       </form>
     </div>

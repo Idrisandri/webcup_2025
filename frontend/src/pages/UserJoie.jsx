@@ -65,7 +65,6 @@ export default function UserJoie() {
 
   return (
     <>
-      {/* Barre de navigation */}
       <motion.nav
         className="bg-amber-00 border-b border-amber-200 shadow-md"
         initial={{ opacity: 0, y: -50 }}
@@ -147,8 +146,6 @@ export default function UserJoie() {
           Un espace lumineux où les sourires se partagent et les moments de joie
           s'amplifient
         </motion.p>
-
-        {/* Bouton de chat */}
         <div className="fixed bottom-6 right-6 z-50">
           <div
             className={`absolute inset-0 rounded-full bg-amber-400 opacity-20 ${
@@ -175,9 +172,7 @@ export default function UserJoie() {
             <div className="relative flex items-center justify-center">
               <MessageSquare
                 size={24}
-                className={`text-white ${
-                  !isHovered ? "animate-bounce" : ""
-                }`}
+                className={`text-white ${!isHovered ? "animate-bounce" : ""}`}
               />
             </div>
           </motion.button>
@@ -188,10 +183,7 @@ export default function UserJoie() {
           <div className="absolute -top-3 -left-2 w-2 h-2 bg-amber-400 rounded-full animate-float-medium opacity-60"></div>
           <div className="absolute -bottom-2 -right-3 w-4 h-4 bg-yellow-400 rounded-full animate-float-fast opacity-50"></div>
         </div>
-
         {showChat && <ChatPopup onClose={() => setShowChat(false)} />}
-
-        {/* Bouton ajouter publication */}
         <motion.div
           className="flex justify-center mt-8"
           initial={{ opacity: 0, y: 20 }}
@@ -220,8 +212,6 @@ export default function UserJoie() {
             </span>
           </motion.button>
         </motion.div>
-
-        {/* Publications */}
         <motion.div
           className="mt-6"
           initial="hidden"

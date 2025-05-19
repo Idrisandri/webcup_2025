@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import api from '../api.js';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import api from "../api.js";
 
 export default function Login() {
-  const [creds, setCreds] = useState({ email: '', password: '' });
+  const [creds, setCreds] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleChange = e =>
+  const handleChange = (e) =>
     setCreds({ ...creds, [e.target.name]: e.target.value });
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post('accounts/login/', creds);
+      const { data } = await api.post("accounts/login/", creds);
       navigate(`/user/${data.emotion}`);
     } catch (err) {
       console.error(err.response || err);
@@ -22,8 +22,6 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex bg-gray-100 relative overflow-hidden">
-
-      {/* Bouton Retour */}
       <a
         href="/"
         className="absolute top-6 left-6 text-purple-300 hover:text-white transition-colors duration-200 z-10"
@@ -44,8 +42,6 @@ export default function Login() {
           />
         </svg>
       </a>
-
-      {/* Partie gauche */}
       <motion.div
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -69,11 +65,11 @@ export default function Login() {
           >
             Bienvenue
           </motion.h2>
-          <p className="text-purple-200">Connectez-vous pour accéder à votre espace personnel</p>
+          <p className="text-purple-200">
+            Connectez-vous pour accéder à votre espace personnel
+          </p>
         </div>
       </motion.div>
-
-      {/* Formulaire */}
       <motion.div
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -95,11 +91,7 @@ export default function Login() {
 
           <div className="px-8 pb-8">
             <div className="space-y-6">
-              {/* Email */}
-              <motion.div
-                whileFocus={{ scale: 1.02 }}
-                className="relative"
-              >
+              <motion.div whileFocus={{ scale: 1.02 }} className="relative">
                 <label className="text-sm font-medium text-gray-600 block mb-2">
                   Email
                 </label>
@@ -113,12 +105,7 @@ export default function Login() {
                   required
                 />
               </motion.div>
-
-              {/* Mot de passe */}
-              <motion.div
-                whileFocus={{ scale: 1.02 }}
-                className="relative"
-              >
+              <motion.div whileFocus={{ scale: 1.02 }} className="relative">
                 <label className="text-sm font-medium text-gray-600 block mb-2">
                   Mot de passe
                 </label>
@@ -132,8 +119,6 @@ export default function Login() {
                   required
                 />
               </motion.div>
-
-              {/* Bouton */}
               <div className="pt-2">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -144,11 +129,9 @@ export default function Login() {
                   Se connecter
                 </motion.button>
               </div>
-
-              {/* Lien inscription */}
               <div className="text-center mt-4">
                 <p className="text-sm text-gray-500">
-                  Pas encore de compte ?{' '}
+                  Pas encore de compte ?{" "}
                   <a
                     href="/signup"
                     className="text-purple-500 hover:text-purple-300 font-medium transition"
